@@ -16,7 +16,6 @@ var liriPara = process.argv[3];
 
 var req = [];
 
-
 var getRandom = function() {
     return new Promise(function(resolve, reject) {
         fs.readFile('random.txt', 'utf8', function(error, data) {
@@ -35,26 +34,39 @@ var getCall = function(message) {
 };
 
 
-if (liriCmd === 'do-what-it-says') {
+// if (liriCmd === 'do-what-it-says') {
+//     getRandom().then(function(p1, p2) {
+//         return getCall(p1, p2);
+//     })
+// } else {
+//     doSomething(liriCmd, liriPara);
+// }
 
-    getRandom().then(function(p1, p2) {
-        return getCall(p1, p2);
-    })
 
-    // getRandom().then(function(p1, p2) {
-    //     return getCall(p1, p2);
-    // }).then(function(p1, p2) {
-    //     return doSomething(p1, p2);
-    // }).then(function(result) {
-    //     console.log('finished');
-    // })
-
-} else {
-
-    doSomething(liriCmd, liriPara);
-
+switch (liriCmd) {
+    case 'my-tweets':
+        doSomething(liriCmd);
+        break;
+    case 'spotify-this-song':
+        if (liriPara === undefined) {
+            doSomething(liriCmd, "The Sign Ace of Base");
+        } else {
+            doSomething(liriCmd, liriPara);
+        }
+        break;
+    case 'movie-this':
+        if (liriPara === undefined) {
+            doSomething(liriCmd, "Mr. Nobody");
+        } else {
+            doSomething(liriCmd, liriPara);
+        }
+        break;
+    case 'do-what-it-says':
+        getRandom().then(function(p1, p2) {
+            return getCall(p1, p2);
+        })
+        break;
 }
-
 
 function doSomething(p1, p2) {
 
@@ -95,16 +107,18 @@ function doSomething(p1, p2) {
                     console.log('Error occurred: '  +  error);        
                     return;    
                 } 
+                var rtUrl = "https://www.rottentomatoes.com/m/"+p2.split(' ').join('_')+"/";
+                var rYear = JSON.parse(body).Released;
                 console.log('======================');
-                console.log(JSON.parse(body).Title);
-                console.log(JSON.parse(body).Year);
-                console.log(JSON.parse(body).imdbRating);
-                console.log(JSON.parse(body).Country);
-                console.log(JSON.parse(body).Language);
-                console.log(JSON.parse(body).Plot);
-                console.log(JSON.parse(body).Actors);
-                console.log(JSON.parse(body).Ratings[1].Source);
-                console.log(JSON.parse(body).Ratings[1].Value);
+                console.log("Title: " + JSON.parse(body).Title);
+                console.log("Year Released: " + rYear.slice(-4));
+                console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
+                console.log("Produced in: " + JSON.parse(body).Country);
+                console.log("Language: " + JSON.parse(body).Language);
+                console.log("Plot: " + JSON.parse(body).Plot);
+                console.log("Actors: " + JSON.parse(body).Actors);
+                console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value);
+                console.log("Rotten Tomatoes URL: "+ rtUrl);
                 console.log('======================');
             });
             break;
