@@ -1,0 +1,30 @@
+{
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "Liri App for UNCC Coding Boot Camp",
+  "main": "liri.js",
+  "dependencies": {
+    "request": "^2.81.0",
+    "spotify": "^0.3.0",
+    "twitter": "^1.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node liri my-tweets"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dlphillips/liri-node-app.git"
+  },
+  "keywords": [
+    "Twitter",
+    "OMDB",
+    "Spotify"
+  ],
+  "author": "Dan Phillips",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dlphillips/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/dlphillips/liri-node-app#readme"
+}
